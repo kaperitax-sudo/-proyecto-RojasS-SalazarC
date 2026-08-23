@@ -1,0 +1,22 @@
+#BlueJ class context
+#Sat Aug 22 00:12:27 COT 2026
+comment0.target=Symbol
+comment0.text=\r\n Un simbolo de la maquina. Se identifica por su color.\r\n
+comment1.params=color
+comment1.target=Symbol(java.lang.String)
+comment1.text=\r\n Crea un simbolo invisible del color dado.\r\n @param color nombre de un color CSS\r\n
+comment2.target=void build()
+comment2.text=\r\n Arma la figura. \r\n
+comment3.target=java.lang.String color()
+comment3.text=\r\n Indica el color del simbolo.\r\n @return nombre del color\r\n
+comment4.params=other
+comment4.target=boolean is(java.lang.String)
+comment4.text=\r\n Indica si el simbolo es de ese color.\r\n @param other nombre de color\r\n @return true si es el mismo\r\n
+comment5.params=x y
+comment5.target=void moveTo(int, int)
+comment5.text=\r\n Ubica el simbolo en el canvas.\r\n @param x coordenada horizontal\r\n @param y coordenada vertical\r\n
+comment6.target=void makeVisible()
+comment6.text=\r\n Hace visible el simbolo.\r\n
+comment7.target=void makeInvisible()
+comment7.text=\r\n Hace invisible el simbolo.\r\n
+numComments=8
