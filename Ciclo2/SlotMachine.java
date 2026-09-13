@@ -151,13 +151,19 @@ public class SlotMachine
      */
     public void spin(int wheel)
     {
-        if (!canSpin()) {
+        Wheel rueda = wheels.get(index(wheel, wheels.size()));
+        if (rueda.getLock()){  //Ciclo 2
+            error("la rueda esta blockeada");
+        }else{
+            if(!canSpin()){
             return;
         }
         wheels.get(index(wheel, wheels.size())).spin(random);
         refresh();
         ok = true;
+     }
     }
+    
 
     /**
      * Gira todas las ruedas.
@@ -168,8 +174,12 @@ public class SlotMachine
             return;
         }
         for (Wheel wheel : wheels) {
+            if (wheel.getLock()){
+                error("la rueda "+  wheels.indexOf(wheel) + " esta blockeada");
+                continue;
+            }
             wheel.spin(random);
-        }
+        } 
         refresh();
         ok = true;
     }
@@ -382,6 +392,24 @@ public class SlotMachine
     Bloquea la rueda evitando que se mueva    
     */
     public void lock(int wheel){
+        Wheel rueda = wheels.get(index(wheel,wheels.size()));
+        boolean islock = rueda.getLock();
+        if (islock == false){
+            rueda.setLock(true);
+        }
         
-    }
+        }
+        
+    /**
+    desbloquea la rueda haciendo que se mueva    
+    */
+    public void unlock(int wheel){
+        Wheel rueda = wheels.get(index(wheel,wheels.size()));
+        boolean islock = rueda.getLock();
+        if (islock == true){
+            rueda.setLock(false);
+        }
+        
+     }
+
 }

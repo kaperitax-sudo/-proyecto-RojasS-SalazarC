@@ -16,7 +16,7 @@ public class Wheel
     private int xPosition;
     private int yPosition;
     private boolean isVisible;
-    private boolean isLock;    // Ciclo 2
+    private boolean isLock = false;    // Ciclo 2
 
     /**
      * Crea una rueda invisible con los colores dados.
@@ -192,7 +192,11 @@ public class Wheel
         }
     }
     
-    public boolean getlock(){
+    public boolean getLock(){ //Ciclo 2
         return isLock;
+    }
+    
+    public void setLock (boolean lk){ // Ciclo 2
+        isLock = lk;
     }
 }

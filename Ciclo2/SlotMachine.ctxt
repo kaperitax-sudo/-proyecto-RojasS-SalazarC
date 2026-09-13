@@ -1,5 +1,5 @@
 #BlueJ class context
-#Sun Sep 06 21:57:58 COT 2026
+#Sun Sep 13 10:16:28 COT 2026
 comment0.target=SlotMachine
 comment0.text=\r\n Simulador de una maquina tragamonedas.\r\n La maquina tiene ruedas y todas las ruedas tienen los mismos simbolos.\r\n Cada simbolo se identifica por su color y todos son diferentes.\r\n
 comment1.target=SlotMachine()
@@ -44,6 +44,9 @@ comment24.text=\r\n Avisa al usuario, solo si el simulador esta visible.\r\n
 comment25.params=wheel
 comment25.target=void lock(int)
 comment25.text=\r\n    Bloquea la rueda evitando que se mueva    \r\n
+comment26.params=wheel
+comment26.target=void unlock(int)
+comment26.text=\r\n    desbloquea la rueda haciendo que se mueva    \r\n
 comment3.params=pos
 comment3.target=void delWheel(int)
 comment3.text=\r\n Elimina la rueda de la posicion dada.\r\n @param pos posicion de la rueda, empezando en 1\r\n
@@ -63,4 +66,4 @@ comment8.target=void spin()
 comment8.text=\r\n Gira todas las ruedas.\r\n
 comment9.target=java.lang.String[] symbols()
 comment9.text=\r\n Consulta los simbolos de la maquina, en el orden de la rueda.\r\n @return los colores de los simbolos\r\n
-numComments=26
+numComments=27
