@@ -1,5 +1,5 @@
 #BlueJ class context
-#Sun Sep 06 21:51:32 COT 2026
+#Sun Sep 20 19:41:07 COT 2026
 comment0.target=Symbol
 comment0.text=\r\n Un simbolo de la maquina. Se identifica por su color.\r\n
 comment1.params=color

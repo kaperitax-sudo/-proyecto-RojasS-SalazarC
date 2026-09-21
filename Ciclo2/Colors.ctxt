@@ -1,5 +1,5 @@
 #BlueJ class context
-#Sun Sep 06 21:51:32 COT 2026
+#Sun Sep 20 19:39:05 COT 2026
 comment0.target=Colors
 comment0.text=\r\n Colores CSS.\r\n Traduce el color dado en texto a color de java.\r\n
 comment1.params=name
@@ -8,6 +8,9 @@ comment1.text=\r\n Traduce el nombre \r\n @param name nombre del color\r\n @retu
 comment2.params=name
 comment2.target=boolean isValid(java.lang.String)
 comment2.text=\r\n Saber si pertenece a un color CSS conocido.\r\n @param name nombre del color\r\n @return true si el color existe\r\n
-comment3.target=java.util.HashMap create()
-comment3.text=A\r\n Construye la tabla\: primarios y secundarios de la rueda cromatica.\r\n \r\n
-numComments=4
+comment3.params=n
+comment3.target=java.lang.String[] palette(int)
+comment3.text=\r\n Presta los primeros n colores que sirven como simbolo.\r\n @param n cuantos colores se necesitan\r\n @return los nombres, todos diferentes, o null si no alcanzan\r\n
+comment4.target=java.util.HashMap create()
+comment4.text=A\r\n Construye la tabla\: primarios y secundarios de la rueda cromatica.\r\n \r\n
+numComments=5

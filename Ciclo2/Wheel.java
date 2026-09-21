@@ -192,11 +192,28 @@ public class Wheel
         }
     }
     
-    public boolean getLock(){ //Ciclo 2
+        /**
+     * Rota la rueda un numero de pasos, en circulo.
+     * Los pasos negativos rotan en sentido contrario.
+     * @param steps numero de pasos
+     */
+    public void rotate(int steps)
+    {
+        if (symbols.isEmpty()) {
+            return;
+        }
+        int size = symbols.size();
+        current = ((current + steps) % size + size) % size;
+        refresh();
+    }
+    
+    
+    
+    public boolean getLock(){ 
         return isLock;
     }
     
-    public void setLock (boolean lk){ // Ciclo 2
+    public void setLock (boolean lk){ 
         isLock = lk;
     }
 }

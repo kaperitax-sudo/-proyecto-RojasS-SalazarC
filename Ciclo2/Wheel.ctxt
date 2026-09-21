@@ -1,5 +1,5 @@
 #BlueJ class context
-#Wed Sep 09 22:57:10 COT 2026
+#Sun Sep 20 19:41:07 COT 2026
 comment0.target=Wheel
 comment0.text=\r\n Una rueda de la maquina. Tiene sus simbolos en orden\r\n y muestra uno solo\: el simbolo visible.\r\n
 comment1.params=colors
@@ -15,9 +15,12 @@ comment13.target=void showCurrent()
 comment13.text=\r\n Centra y muestra el simbolo visible.\r\n
 comment14.target=void hideAll()
 comment14.text=\r\n Esconde todos los simbolos.\r\n
-comment15.target=boolean getLock()
-comment16.params=lk
-comment16.target=void setLock(boolean)
+comment15.params=steps
+comment15.target=void rotate(int)
+comment15.text=\r\n Rota la rueda un numero de pasos, en circulo.\r\n Los pasos negativos rotan en sentido contrario.\r\n @param steps numero de pasos\r\n
+comment16.target=boolean getLock()
+comment17.params=lk
+comment17.target=void setLock(boolean)
 comment2.params=index color
 comment2.target=void addSymbol(int, java.lang.String)
 comment2.text=\r\n Adiciona un simbolo en la posicion dada.\r\n @param index posicion en la lista\r\n @param color color del simbolo\r\n
@@ -40,4 +43,4 @@ comment8.target=void changeColor(java.lang.String)
 comment8.text=\r\n Cambia el color del marco.\r\n @param color nombre de un color CSS\r\n
 comment9.target=void makeVisible()
 comment9.text=\r\n Hace visible la rueda.\r\n
-numComments=17
+numComments=18

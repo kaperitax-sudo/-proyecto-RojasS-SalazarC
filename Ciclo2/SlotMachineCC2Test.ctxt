@@ -1,0 +1,15 @@
+#BlueJ class context
+#Sun Sep 20 20:01:55 COT 2026
+comment0.target=SlotMachineCC2Test
+comment0.text=\r\n Casos de prueba compartidos del ciclo 2.\r\n Rs\: Rojas Solano. S\: Salazar.\r\n Todas las pruebas corren con la maquina invisible.\r\n
+comment1.target=void setUp()
+comment1.text=\r\n Arma una maquina de tres simbolos y tres ruedas,\r\n cada rueda en un simbolo distinto.\r\n
+comment2.target=void accordingRsSShouldSwapTwoWheels()
+comment2.text=\r\n Requisito 9. Las dos ruedas quedan cambiadas de puesto.\r\n
+comment3.target=void accordingRsSShouldNotSpinALockedWheel()
+comment3.text=\r\n Requisito 10. Una rueda fija no gira.\r\n
+comment4.target=void accordingRsSShouldRotateAWheelTheGivenSteps()
+comment4.text=\r\n Requisito 11. La rueda avanza los pasos pedidos y gira en circulo.\r\n
+comment5.target=void accordingRsSShouldLeaveTheMachineInTheGivenConfiguration()
+comment5.text=\r\n Requisito 12. La maquina queda en la configuracion pedida,\r\n y si el simbolo no existe no cambia nada.\r\n
+numComments=6

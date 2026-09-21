@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import java.util.Collections;
 
 /**
  * Simulador de una maquina tragamonedas.
@@ -9,14 +10,16 @@ import javax.swing.JOptionPane;
  */
 public class SlotMachine
 {
-    public static final int MAX_WHEELS = 6;
-    public static final int MAX_SYMBOLS = 6;
+    public static final int MAX_WHEELS = 50;
+    public static final int MAX_SYMBOLS = 50;
+
 
     private static final int BODY_X = 10;          // esquina del cuerpo
     private static final int BODY_Y = 60;
     private static final int BODY_WIDTH = 280;     // el canvas mide 300
     private static final int BODY_HEIGHT = 110;
     private static final int GAP = 8;              // espacio entre ruedas
+    private static final int STEP_DELAY = 120;     // milisegundos por paso
 
     private ArrayList<Wheel> wheels;
     private ArrayList<String> symbols;             // los colores, en orden
@@ -76,6 +79,36 @@ public class SlotMachine
         ok = true;
     }
 
+    
+    /**
+     * Intercambia dos ruedas de posicion.
+     * @param wheel1 posicion de la primera rueda, empezando en 1
+     * @param wheel2 posicion de la segunda rueda, empezando en 1
+     */
+    public void swap(int wheel1, int wheel2)
+    {
+        if (wheels.size() < 2) {
+            error("La maquina necesita al menos dos ruedas.");
+            return;
+        }
+        
+        int first = index(wheel1, wheels.size());
+        int second = index(wheel2, wheels.size());
+        
+        if (first == second) {
+            error("Las dos ruedas deben ser diferentes.");
+            return;
+        }
+        
+        
+        Collections.swap(wheels, first, second);   
+        layout();
+        ok = true;
+    }
+    
+    
+    
+    
     /**
      * Adiciona un simbolo en la posicion dada.
      * @param pos posicion del simbolo, empezando en 1
@@ -145,28 +178,31 @@ public class SlotMachine
         ok = true;
     }
 
-    /**
-     * Gira una rueda.
+    
+        /**
+     * Gira una rueda, si no esta fija.
      * @param wheel posicion de la rueda, empezando en 1
      */
+
     public void spin(int wheel)
     {
-        Wheel rueda = wheels.get(index(wheel, wheels.size()));
-        if (rueda.getLock()){  //Ciclo 2
-            error("la rueda esta blockeada");
-        }else{
-            if(!canSpin()){
+        if (!canSpin()) {
             return;
         }
-        wheels.get(index(wheel, wheels.size())).spin(random);
+        Wheel target = wheels.get(index(wheel, wheels.size()));
+        if (target.getLock()) {
+            error("La rueda " + wheel + " esta fija.");
+            return;
+        }
+        target.spin(random);
         refresh();
         ok = true;
-     }
     }
     
 
     /**
-     * Gira todas las ruedas.
+     * Gira todas las ruedas que no esten fijas.
+     * Las ruedas fijas conservan su simbolo visible.
      */
     public void spin()
     {
@@ -174,15 +210,87 @@ public class SlotMachine
             return;
         }
         for (Wheel wheel : wheels) {
-            if (wheel.getLock()){
-                error("la rueda "+  wheels.indexOf(wheel) + " esta blockeada");
-                continue;
+            if (!wheel.getLock()) {
+                wheel.spin(random);
             }
-            wheel.spin(random);
-        } 
+        }
         refresh();
         ok = true;
     }
+    
+    /**
+     * Rota una rueda un numero de pasos, si no esta fija.
+     * Si la maquina es visible el movimiento se ve paso a paso.
+     * @param wheel posicion de la rueda, empezando en 1
+     * @param steps numero de pasos, puede ser negativo
+     */
+    public void spin(int wheel, int steps)
+    {
+        if (!canSpin()) {
+            return;
+        }
+        Wheel target = wheels.get(index(wheel, wheels.size()));
+        if (target.getLock()) {
+            error("La rueda " + wheel + " esta fija.");
+            return;
+        }
+        if (isVisible) {
+            int one = 1;
+            if (steps < 0) {
+                one = -1;
+            }
+            for (int i = 0; i < Math.abs(steps); i++) {
+                target.rotate(one);
+                refresh();
+                Canvas.getCanvas().wait(STEP_DELAY);
+            }
+        }
+        else {
+            target.rotate(steps);
+        }
+        refresh();
+        ok = true;
+    }
+    
+    
+    
+    /**
+     * Deja la maquina en la configuracion dada.
+     * O se aplica completa, o no se aplica nada.
+     * @param setSymbols colores deseados, uno por rueda, de izquierda a derecha
+     */
+    public void spin(String[] setSymbols)
+    {
+        if (!canSpin()) {
+            return;
+        }
+        if (setSymbols == null || setSymbols.length != wheels.size()) {
+            error("La configuracion debe tener " + wheels.size() + " simbolos.");
+            return;
+        }
+        String[] values = new String[setSymbols.length];
+        for (int i = 0; i < setSymbols.length; i++) {
+            if (setSymbols[i] == null) {
+                error("La configuracion tiene un simbolo vacio.");
+                return;
+            }
+            values[i] = setSymbols[i].toLowerCase();
+            if (!symbols.contains(values[i])) {
+                error("La maquina no tiene el simbolo " + setSymbols[i] + ".");
+                return;
+            }
+            if (wheels.get(i).getLock() && !wheels.get(i).symbol().equals(values[i])) {
+                error("La rueda " + (i + 1) + " esta fija.");
+                return;
+            }
+        }
+        for (int i = 0; i < values.length; i++) {
+            wheels.get(i).place(values[i]);
+        }
+        refresh();
+        ok = true;
+    }
+    
 
     /**
      * Consulta los simbolos de la maquina, en el orden de la rueda.
@@ -388,28 +496,35 @@ public class SlotMachine
         }
     }
     
+        /**
+     * Fija una rueda para que no gire.
+     * @param wheel posicion de la rueda, empezando en 1
+     */
+    public void lock(int wheel)
+    {
+        setLock(wheel, true);
+    }
+
     /**
-    Bloquea la rueda evitando que se mueva    
-    */
-    public void lock(int wheel){
-        Wheel rueda = wheels.get(index(wheel,wheels.size()));
-        boolean islock = rueda.getLock();
-        if (islock == false){
-            rueda.setLock(true);
-        }
-        
-        }
-        
+     * Suelta una rueda para que vuelva a girar.
+     * @param wheel posicion de la rueda, empezando en 1
+     */
+    public void unlock(int wheel)
+    {
+        setLock(wheel, false);
+    }
+
     /**
-    desbloquea la rueda haciendo que se mueva    
-    */
-    public void unlock(int wheel){
-        Wheel rueda = wheels.get(index(wheel,wheels.size()));
-        boolean islock = rueda.getLock();
-        if (islock == true){
-            rueda.setLock(false);
+     * Fija o suelta la rueda de la posicion dada.
+     */
+    private void setLock(int wheel, boolean value)
+    {
+        if (wheels.isEmpty()) {
+            error("La maquina no tiene ruedas.");
+            return;
         }
-        
-     }
+        wheels.get(index(wheel, wheels.size())).setLock(value);
+        ok = true;
+    }
 
 }
