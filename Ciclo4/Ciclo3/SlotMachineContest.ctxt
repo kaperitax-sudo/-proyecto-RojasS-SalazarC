@@ -1,0 +1,14 @@
+#BlueJ class context
+#Tue Sep 29 17:55:00 COT 2026
+comment0.target=SlotMachineContest
+comment0.text=\r\n Resuelve el problema de la maraton.\r\n Solo usa SlotMachine(n), spin(wheel, steps) y distinctSymbols().\r\n
+comment1.params=n
+comment1.target=int[][] solve(int)
+comment1.text=\r\n Resuelve una maquina de n ruedas, sin mostrarla.\r\n @param n numero de ruedas y de colores\r\n @return las jugadas {rueda, pasos} para ganar\r\n
+comment2.params=n
+comment2.target=void simulate(int)
+comment2.text=\r\n Muestra la solucion con la maquina visible.\r\n @param n numero de ruedas y de colores\r\n
+comment3.params=machine n
+comment3.target=int[][] play(SlotMachine, int)
+comment3.text=\r\n Juega hasta ganar.\r\n @param machine la maquina que se va a resolver\r\n @param n numero de ruedas y de colores\r\n @return las jugadas {rueda, pasos} que se hicieron\r\n
+numComments=4
